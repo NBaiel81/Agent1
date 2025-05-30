@@ -1,0 +1,16 @@
+# Byte-compiled files
+__pycache__/
+
+# Virtual environment
+.venv/
+
+# macOS metadata
+.DS_Store
+
+# Flask instance folder (if you have one)
+instance/
+
+# VSCode settings
+.vscode/
+
+
