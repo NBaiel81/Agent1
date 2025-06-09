@@ -46,6 +46,14 @@
   >{{ property.description if property else '' }}</textarea>
 </div>
 
+<div style="margin-bottom:15px;">
+  <label>Features (one per line)</label><br>
+  <textarea
+    name="features"
+    style="width:100%;padding:8px;height:80px;"
+  >{% if property and property.features %}{{ property.features|join('\n') }}{% endif %}</textarea>
+</div>
+
 <div style="margin-bottom:15px; display:flex; gap:10px;">
   <div style="flex:1;">
     <label>Price</label><br>
@@ -66,35 +74,6 @@
       required
       style="width:100%;padding:8px;"
     >
-  </div>
-</div>
-
-<div style="margin-bottom:15px; display:flex; gap:10px;">
-  <div style="flex:1;">
-    <label>Type</label><br>
-    <select name="type" required style="width:100%;padding:8px;">
-      <option value="Residential"
-        {% if property and property.type=='Residential' %}selected{% endif %}>
-        Residential
-      </option>
-      <option value="Commercial"
-        {% if property and property.type=='Commercial' %}selected{% endif %}>
-        Commercial
-      </option>
-    </select>
-  </div>
-  <div style="flex:1;">
-    <label>Status</label><br>
-    <select name="status" required style="width:100%;padding:8px;">
-      <option value="For Lease"
-        {% if property and property.status=='For Lease' %}selected{% endif %}>
-        For Lease
-      </option>
-      <option value="For Sale"
-        {% if property and property.status=='For Sale' %}selected{% endif %}>
-        For Sale
-      </option>
-    </select>
   </div>
 </div>
 
@@ -136,14 +115,6 @@
 </div>
 
 <div style="margin-bottom:15px;">
-  <label>Features (one per line)</label><br>
-  <textarea
-    name="features"
-    style="width:100%;padding:8px;height:80px;"
-  >{% if property and property.features %}{{ property.features|join('\n') }}{% endif %}</textarea>
-</div>
-
-<div style="margin-bottom:15px;">
   <label>Map URL</label><br>
   <input
     type="text"
@@ -163,6 +134,36 @@
 </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <script>
+Dropzone.autoDiscover = false;
+
+const dropzone = new Dropzone("#propertyImageDropzone", {
+  url: document.getElementById("propertyImageDropzone").dataset.uploadUrl,
+  maxFilesize: 5, // MB
+  acceptedFiles: "image/png,image/jpeg,image/jpg",
+  addRemoveLinks: false,
+  init: function () {
+    this.on("success", function (file, response) {
+      const imgPreview = document.createElement("div");
+      imgPreview.className = "image-preview";
+      imgPreview.style = "position:relative; width:100px; height:100px;";
+
+      imgPreview.innerHTML = `
+        <img src="/static/images/${response.filename}" style="width:100%; height:100%; object-fit:cover; border-radius:4px;">
+        <button type="button" class="remove-image" style="position:absolute; top:5px; right:5px; background:#d60000; color:#fff; border:none; border-radius:50%; width:24px; height:24px; cursor:pointer;">✖</button>
+        <input type="hidden" name="images" value="${response.filename}">
+      `;
+
+      imgPreview.querySelector(".remove-image").addEventListener("click", function () {
+        imgPreview.remove();
+      });
+
+      document.getElementById("uploadedImages").appendChild(imgPreview);
+    });
+  }
+});
+</script>
+
 </body>
 </html>
  

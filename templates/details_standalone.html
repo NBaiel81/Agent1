@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{% block title %}Mainland Commerce Real Estate{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Find commercial and residential properties in Winnipeg. Mainland Commerce Real Estate helps you manage or find your next space.{% endblock %}">
+
+  <!-- Favicon links -->
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon_io/apple-touch-icon.png') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon_io/favicon-32x32.png') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon_io/favicon-16x16.png') }}">
+  <link rel="manifest" href="{{ url_for('static', filename='favicon_io/site.webmanifest') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon_io/favicon.ico') }}" type="image/x-icon">
+
+
+{{ property.title }}
+
+
+  
+  <link href="{{ url_for('static', filename='css/details.css') }}" rel="stylesheet"/>
+<style>
+    #flyer-frame {
+      display: none; /* Hide the iframe */
+    }
+  </style>
+
+
+
+  <!-- Hidden Iframe for Printing Flyer -->
+
+<!-- CAROUSEL -->
+<section class="carousel-container">
+<div class="slides">
+      {% if property.images %}
+        <!-- Duplicated last slide -->
+<div class="slide">
+<img alt="Photo {{ property.images|length }}" src="{{ url_for('static', filename='images/' ~ property.images[-1]) }}"/>
+</div>
+<!-- Real slides -->
+        {% for img in property.images %}
+          <div class="slide">
+<img alt="Photo {{ loop.index }}" src="{{ url_for('static', filename='images/' ~ img) }}"/>
+</div>
+        {% endfor %}
+        <!-- Duplicated first slide -->
+<div class="slide">
+<img alt="Photo 1" src="{{ url_for('static', filename='images/' ~ property.images[0]) }}"/>
+</div>
+      {% else %}
+        <div class="slide">
+<img alt="No image" src="{{ url_for('static', filename='images/placeholder.jpg') }}"/>
+</div>
+      {% endif %}
+    </div>
+<button aria-label="Previous slide" class="nav prev">❮</button>
+<button aria-label="Next slide" class="nav next">❯</button>
+<div class="caption">
+<div class="info">
+<p><strong>{{ property.address }}</strong></p>
+<p>{{ property.title }}</p>
+<p>{{ property.type }} | {{ property.status }} • {{ property.size }} SF</p>
+</div>
+
+</div>
+</section>
+<!-- DETAILS & CONTACT PANEL -->
+<section class="property-info-section">
+<div class="property-info-container">
+<div class="property-details">
+<h1>Property Details</h1>
+<h3 class="status">{{ property.status|upper }}</h3>
+<p class="price">
+<strong>{{ property.price }}$</strong>
+<span>{% if property.status == 'For Lease' %}/month{% endif %}</span>
+</p>
+<p class="description">{{ property.description }}</p>
+<hr/>
+<h3>Features</h3>
+<ul>
+          {% for feat in property.features %}
+            <li>{{ feat }}</li>
+          {% endfor %}
+        </ul>
+<hr/>
+<h3>Location</h3>
+<a class="map-button" href="{{ property.location }}" target="_blank">
+          Open Map
+        </a>
+<div class="map-container">
+          {% if property.location %}
+            <iframe allowfullscreen="" height="300" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="{{ property.location | to_embed_url }}" style="border:0; border-radius: 10px; margin-top: 15px;" width="100%">
+</iframe>
+          {% else %}
+            <p>Map unavailable</p>
+          {% endif %}
+        </div>
+</div>
+<div class="expert-card">
+<h3>Get More Info</h3>
+<p class="description">For more info, contact our team below.</p>
+<div class="expert-info">
+<h4>Jennifer Tavares</h4>
+<p class="title"><strong>Agent</strong></p>
+<p class="location">Winnipeg, Manitoba</p>
+<div class="expert-contact">
+<p><a href="tel:+12045046631">+1 204 504 6631</a></p>
+<p><a href="mailto:admin@mcre.ca">admin@mcre.ca</a></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+
+  
+  <script>
+    function printFlyer(propertyId) {
+      const flyerFrame = document.getElementById('flyer-frame');
+      if (!flyerFrame) {
+        console.error('Flyer iframe not found');
+        return;
+      }
+      const flyerUrl = `/flyer/${propertyId}`;
+      flyerFrame.src = flyerUrl; // Load the flyer in the iframe
+      flyerFrame.onload = () => {
+        try {
+          flyerFrame.contentWindow.focus();
+          flyerFrame.contentWindow.print();
+        } catch (e) {
+          console.error('Failed to print flyer:', e);
+        }
+      };
+    }
+  </script>

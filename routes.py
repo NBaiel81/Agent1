@@ -18,20 +18,42 @@ def delete_image_file(filename):
 
 @main.route('/')
 def index():
-    properties = Property.query.all()
-    return render_template('index.html', properties=properties)
+    top_properties = Property.query.order_by(Property.price.desc()).limit(3).all()
+    return render_template('index.html', top_properties=top_properties)
 
 @main.route('/properties')
 def properties():
-    properties = Property.query.all()
-    return render_template('properties.html', properties=properties)
+    props = Property.query.all()
+    props_data = [
+        {
+            "id": p.id,
+            "title": p.title,
+            "address": p.address,
+            "price": p.price,
+            "images": p.images or []
+        }
+        for p in props
+    ]
+    return render_template("properties.html", properties=props, properties_json=props_data)
+
 
 @main.route('/property/<int:property_id>')
-def property_detail(property_id):
+def property(property_id):
     prop = Property.query.get(property_id)
     if not prop:
         abort(404)
-    return render_template('details.html', property=prop)
+    props = Property.query.all()
+    props_data = [
+        {
+            "id": p.id,
+            "title": p.title,
+            "address": p.address,
+            "price": p.price,
+            "images": p.images or []
+        }
+        for p in props
+    ]
+    return render_template('property.html', property=prop, properties_json=props_data)
 
 @main.route('/flyer/<int:property_id>')
 def flyer(property_id):
@@ -85,9 +107,7 @@ def add_property():
             address     = request.form['address'],
             description = request.form['description'],
             price       = request.form['price'],
-            type        = request.form['type'],
             size        = request.form['size'],
-            status      = request.form['status'],
             images      = request.form.getlist('images'),
             features    = [line.strip() for line in request.form['features'].splitlines() if line.strip()],
             location    = request.form['location']
@@ -113,9 +133,7 @@ def edit_property(property_id):
         prop.address     = request.form['address']
         prop.description = request.form['description']
         prop.price       = request.form['price']
-        prop.type        = request.form['type']
         prop.size        = request.form['size']
-        prop.status      = request.form['status']
         prop.images      = updated_images
         prop.features    = [line.strip() for line in request.form['features'].splitlines() if line.strip()]
         prop.location    = request.form['location']

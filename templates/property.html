@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nancy Bohemier | CENTURY 21 Carrie Realty</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Property Details | Nancy Bohemier</title>
     <style>
         /* Global Reset & Variables */
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -76,6 +77,29 @@
             border-color: var(--color-secondary);
         }
 
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--radius);
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+            z-index: 10;
+        }
+
+        .search-results li {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .search-results li:hover {
+            background: var(--color-gray-200);
+        }
+
         .navbar__actions {
             display: flex;
             align-items: center;
@@ -139,65 +163,182 @@
             border: 1px solid var(--color-black-200);
         }
 
-        /* Properties Section */
-        .bundles-section {
-            background-color: var(--color-white);
+        /* Property Section */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 1.5rem auto;
+            background: var(--color-white);
             border: 1px solid var(--color-gray-200);
             border-radius: var(--radius);
             padding: 1rem;
-            margin: 1.5rem auto;
-            max-width: 1200px;
         }
 
-        .section-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--color-primary);
-            margin-bottom: 1rem;
+        .carousel {
+            position: relative;
+            max-width: 800px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .carousel-images {
+            display: flex;
+            width: 100%;
+        }
+
+        .carousel-slide {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            display: none;
+        }
+
+        .carousel-slide.active {
+            display: block;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .carousel-controls a {
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--color-white);
+            padding: 10px 15px;
+            font-size: 24px;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: var(--radius);
+        }
+
+        .carousel-controls a:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .carousel-placeholder {
+            width: 100%;
+            height: 400px;
+            background: var(--color-gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-gray-700);
+            font-size: 1.2rem;
+            border-radius: var(--radius);
+        }
+
+        .property-info {
             text-align: center;
+            padding: 20px 0;
         }
 
-        .game-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        .property-info h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--color-gray-700);
+            margin-bottom: 0.5rem;
+        }
+
+        .property-info h2 {
+            font-size: 1.25rem;
+            color: var(--color-gray-700);
+            margin-bottom: 0.5rem;
+        }
+
+        .property-info p {
+            font-size: 1rem;
+            color: var(--color-gray-700);
+        }
+
+        .content {
+            display: flex;
+            margin: 20px 0;
             gap: 1rem;
         }
 
-        .game-card {
-            border: 1px solid var(--color-gray-200);
+        .details, .features {
+            flex: 1;
+            padding: 1rem;
+            background: var(--color-gray-100);
             border-radius: var(--radius);
-            background: var(--color-white);
-            padding: 0.75rem;
+        }
+
+        .details {
+            border-right: 1px solid var(--color-gray-200);
+        }
+
+        .details h2, .features h2 {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .details p {
+            margin-bottom: 0.5rem;
+        }
+
+        .features ul {
+            list-style: disc;
+            padding-left: 20px;
+        }
+
+        .features li {
+            margin-bottom: 0.5rem;
+        }
+
+        .map {
             text-align: center;
-            transition: transform var(--transition);
+            padding: 20px 0;
         }
 
-        .game-card:hover {
-            transform: translateY(-3px);
+        .map a {
+            color: var(--color-primary);
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            text-decoration: none;
         }
 
-        .game-card img {
+        .map iframe {
             width: 100%;
-            height: 250px;
-            object-fit: cover;
+            height: 300px;
+            border: 0;
             border-radius: var(--radius);
         }
 
-        .game-card h4 {
+        .print-btn {
+            background: var(--color-secondary);
+            color: var(--color-white);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            cursor: pointer;
             font-size: 1rem;
-            font-weight: 500;
-            margin: 0.5rem 0 0.25rem;
-            color: var(--color-gray-700);
-        }
-
-        .game-card p {
-            margin: 0.25rem 0;
-            font-size: 0.9rem;
-        }
-
-        .price {
             font-weight: 600;
-            color: var(--color-gray-700);
+            border-radius: var(--radius);
+            margin-top: 0.5rem;
+            transition: background-color var(--transition);
+        }
+
+        .print-btn:hover {
+            background: var(--color-primary);
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            .details {
+                border-right: none;
+                border-bottom: 1px solid var(--color-gray-200);
+            }
         }
 
         /* Footer */
@@ -260,7 +401,7 @@
     <div class="navbar">
         <div class="navbar__inner">
             <div style="display: flex; align-items: center;">
-                <a href="{{url_for('main.index')}}" class="navbar__logo">
+                <a href="{{ url_for('main.index') }}" class="navbar__logo">
                     <img src="{{ url_for('static', filename='images/C21.png') }}" alt="Logo">
                 </a>
                 <div class="search-container">
@@ -313,22 +454,64 @@
         </div>
     </div>
 
-    <!-- Properties Section -->
-    <section class="bundles-section">
-        <h2 class="section-title">Properties</h2>
-        <div class="game-grid">
-            {% for property in properties %}
-            <div class="game-card">
-                <a href="{{ url_for('main.property', property_id=property.id) }}">
-                    <img src="{{ url_for('static', filename='images/' ~ (property.images[0] if property.images else 'default.jpg')) }}" alt="Property">
-                    <h4>{{ property.title }}</h4>
-                    <p>{{ property.address }}</p>
-                    <p class="price">${{ property.price }}</p>
-                </a>
+    <!-- Property Details Section -->
+    <div class="container">
+        <div class="carousel">
+            {% if property.images and property.images|length > 0 %}
+            <div class="carousel-images">
+                {% for img in property.images %}
+                <img class="carousel-slide" src="{{ url_for('static', filename='images/' ~ img) }}" alt="Property Image">
+                {% endfor %}
             </div>
-            {% endfor %}
+            <div class="carousel-controls">
+                <a href="#" class="carousel-btn prev">❮</a>
+                <a href="#" class="carousel-btn next">❯</a>
+            </div>
+            {% else %}
+            <div class="carousel-placeholder">
+                No images available
+            </div>
+            {% endif %}
         </div>
-    </section>
+
+        <div class="property-info">
+            <h1>{{ property.address }}</h1>
+            <h2>{{ property.title }}</h2>
+            <p>{{ property.size }} SF</p>
+            <button class="print-btn" onclick="printFlyer()">Print Property</button>
+        </div>
+
+        <div class="content">
+            <div class="details">
+                <h2>Property Details</h2>
+                <p>{{ property.status|upper }}</p>
+                <p class="price">${{ property.price }}</p>
+                <p>{{ property.description }}</p>
+            </div>
+            <div class="features">
+                <h2>Features</h2>
+                <ul>
+                    {% for f in property.features %}
+                    <li>{{ f }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="map">
+            <h2>Location</h2>
+            <a href="{{ property.location }}" target="_blank">Open in Google Maps</a>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.086!2d-122.4194155!3d37.7749295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0!2zMzfCsDQ2JzI5LjciTiAxMjLCsDI1JzA5LjkiVw!5e0!3m2!1sen!2sus!4v1638314859123!5m2!1sen!2sus"
+                width="100%"
+                height="300"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -366,37 +549,81 @@
             </div>
         </div>
     </footer>
-    <!-- JavaScript for Search -->
-  <script>
-    const searchInput = document.getElementById("search-bar");
-    const resultsList = document.getElementById("search-results");
 
-    const properties = {{ properties_json | tojson }};
+    <script>
+        const searchInput = document.getElementById("search-bar");
+        const resultsList = document.getElementById("search-results");
 
-    searchInput.addEventListener("input", function () {
-      const query = this.value.toLowerCase();
-      resultsList.innerHTML = "";
-      if (!query) {
-        resultsList.style.display = "none";
-        return;
-      }
+        const properties = JSON.parse('{{ properties_json | tojson | safe }}');
 
-      const matches = properties.filter(p => p.address.toLowerCase().includes(query));
-      matches.forEach(p => {
-        const li = document.createElement("li");
-        li.textContent = p.address;
-        li.onclick = () => window.location.href = "/property/" + p.id;
-        resultsList.appendChild(li);
-      });
+        searchInput.addEventListener("input", function () {
+            const query = this.value.toLowerCase();
+            resultsList.innerHTML = "";
+            if (!query) {
+                resultsList.style.display = "none";
+                return;
+            }
 
-      resultsList.style.display = matches.length ? "block" : "none";
-    });
+            const matches = properties.filter(p => p.address.toLowerCase().includes(query));
+            matches.forEach(p => {
+                const li = document.createElement("li");
+                li.textContent = p.address;
+                li.onclick = () => window.location.href = "/property/" + p.id;
+                resultsList.appendChild(li);
+            });
 
-    document.addEventListener("click", (e) => {
-      if (!searchInput.contains(e.target)) {
-        resultsList.style.display = "none";
-      }
-    });
-  </script>
+            resultsList.style.display = matches.length ? "block" : "none";
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!searchInput.contains(e.target)) {
+                resultsList.style.display = "none";
+            }
+        });
+
+        // Carousel functionality
+        const slides = document.querySelectorAll('.carousel-slide');
+        const prevBtn = document.querySelector('.carousel-btn.prev');
+        const nextBtn = document.querySelector('.carousel-btn.next');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+        }
+
+        if (slides.length > 0) {
+            prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            });
+
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            });
+
+            showSlide(currentSlide);
+            let autoSlideInterval = setInterval(() => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }, 5000);
+
+            const carousel = document.querySelector('.carousel');
+            carousel.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+            carousel.addEventListener('mouseleave', () => autoSlideInterval = setInterval(() => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }, 5000));
+        }
+
+        // Print functionality
+        function printFlyer() {
+            window.print();
+        }
+    </script>
 </body>
 </html>

@@ -21,7 +21,7 @@
     <thead>
       <tr>
         <th style="border-bottom:2px solid #ddd; padding:8px; text-align:left;">ID</th>
-        <th style="border-bottom:2px solid #ddd; padding:8px; text-align:left;">Title</th>
+        <th style="border-bottom:2px solid #ddd; padding:8px; text-align:left;">Address</th>
         <th style="border-bottom:2px solid #ddd; padding:8px; text-align:left;">Type</th>
         <th style="border-bottom:2px solid #ddd; padding:8px; text-align:left;">Status</th>
         <th style="border-bottom:2px solid #ddd; padding:8px; text-align:center;">Actions</th>
@@ -31,7 +31,7 @@
       {% for p in properties %}
       <tr>
         <td style="padding:8px;">{{ p.id }}</td>
-        <td style="padding:8px;">{{ p.title }}</td>
+        <td style="padding:8px;">{{ p.address }}</td>
         <td style="padding:8px;">{{ p.type }}</td>
         <td style="padding:8px;">{{ p.status }}</td>
         <td style="padding:8px; text-align:center;">

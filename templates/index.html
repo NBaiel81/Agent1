@@ -239,7 +239,7 @@
         }
 
         .section-title {
-            font-size: 1.25rem;
+            font-size: 2rem;
             font-weight: 600;
             color: red;
             margin-bottom: 1rem;
@@ -276,6 +276,7 @@
             padding: 0.5rem;
             font-size: 1rem;
             font-weight: 500;
+            line-height: 0.8;
             color: var(--color-gray-700);
             text-align: center;
         }
@@ -283,6 +284,11 @@
         .bundles__view-more {
             text-align: center;
             margin-top: 1rem;
+        }
+
+        .price {
+            font-weight: 600;
+            color: var(--color-gray-700);
         }
 
         .button {
@@ -368,7 +374,7 @@
     <div class="navbar">
         <div class="navbar__inner">
             <div style="display: flex; align-items: center;">
-                <a href="index.html" class="navbar__logo">
+                <a href="{{url_for('main.index')}}" class="navbar__logo">
                     <img src="{{ url_for('static', filename='images/C21.png') }}" alt="Logo">
                 </a>
                 <div class="search-container">
@@ -432,32 +438,20 @@
 
     <!-- Properties Section -->
     <section class="bundles-section">
-        <h2 class="section-title">Properties</h2>
+        <h2 class="section-title">Properties on Sale</h2>
         <div class="bundles">
+            {% for property in top_properties %}
             <div class="bundle-card">
-                <a href="game.html?id=game10">
-                    <div class="bundle-card__image">
-                        <img src="{{ url_for('static', filename='images/a1.png') }}" alt="Property 1">
-                    </div>
-                    <h3 class="bundle-card__name">Racing Mania</h3>
-                </a>
+              <a href="{{ url_for('main.property', property_id=property.id) }}">
+                <div class="bundle-card__image">
+                  <img src="{{ url_for('static', filename='images/' ~ (property.images[0] if property.images else 'default.jpg')) }}" alt="{{ property.title }}">
+                </div>
+                <h3 class="bundle-card__name mb-1">{{ property.title }}</h3>
+                <p class="bundle-card__name mb-1">{{ property.address }}</p>
+                <p class="bundle-card__name price">${{ property.price }}</p>
+              </a>
             </div>
-            <div class="bundle-card">
-                <a href="game.html?id=game8">
-                    <div class="bundle-card__image">
-                        <img src="{{ url_for('static', filename='images/a2.png') }}" alt="Property 2">
-                    </div>
-                    <h3 class="bundle-card__name">Stealth Ops</h3>
-                </a>
-            </div>
-            <div class="bundle-card">
-                <a href="game.html?id=game9">
-                    <div class="bundle-card__image">
-                        <img src="{{ url_for('static', filename='images/a3.png') }}" alt="Property 3">
-                    </div>
-                    <h3 class="bundle-card__name">Fantasy Quest</h3>
-                </a>
-            </div>
+            {% endfor %}
         </div>
         <div class="bundles__view-more">
             <a href="{{url_for('main.properties')}}" class="button button--primary">View More</a>
