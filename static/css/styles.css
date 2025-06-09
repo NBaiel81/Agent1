@@ -1,0 +1,199 @@
+/* Reset and basics */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Navbar */
+.navbar {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0); /* transparent */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 40px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: slideIn 0.5s ease-out forwards;
+}
+
+.logo img {
+  height: 50px;
+  border-radius: 12px; /* rounded logo */
+  object-fit: contain;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-links a, .nav-links span {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 17px;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+.nav-links a:hover, .nav-links span:hover {
+  color: #ccc;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+  .nav-links {
+      gap: 15px; /* Reduce gap between links */
+  }
+  .nav-links a, .nav-links span {
+      font-size: 14px; /* Reduce font size */
+  }
+  .navbar {
+      padding: 10px 20px; /* Reduce padding on sides */
+  }
+  .logo img {
+      height: 40px; /* Reduce logo size */
+  }
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  min-width: 120px;
+  padding: 5px 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  z-index: 1001;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 8px 16px;
+  font-size: 15px;
+  color: black;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+  background-color: #f2f2f2;
+}
+
+/* Landing background */
+.landing {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url('../images/background.jpg') center center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px; /* room for navbar */
+  opacity: 0;
+  animation: fadeIn 1s ease-out 0.2s forwards;
+}
+
+/* Content Box */
+.content-box {
+  background-color: rgba(255, 255, 255, 0.801);
+  padding: 50px 40px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 600px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  border: 7px solid #d60000;
+  opacity: 0;
+  transform: scale(0.8);
+  animation: popIn 0.8s ease-out 0.4s forwards;
+}
+
+.content-box h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.content-box p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 35px;
+}
+
+/* Buttons */
+.button-group {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.btn {
+  padding: 12px 28px;
+  background-color: #222;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.6s ease-out 0.6s forwards;
+}
+
+.btn:hover {
+  background-color: #555;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

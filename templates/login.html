@@ -1,0 +1,28 @@
+
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <div class="landing" style="background:none; padding-top:120px;">
+    <div class="content-box" style="max-width:360px;">
+      <h1>Admin Login</h1>
+      <form method="POST">
+        <div style="margin-bottom:15px;">
+          <label>Username</label>
+          <input type="text" name="username" required style="width:100%; padding:8px;">
+        </div>
+        <div style="margin-bottom:15px;">
+          <label>Password</label>
+          <input type="password" name="password" required style="width:100%; padding:8px;">
+        </div>
+        <button type="submit" class="btn" style="width:100%;">Log In</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

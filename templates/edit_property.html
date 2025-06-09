@@ -1,0 +1,27 @@
+<!-- edit_property.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Property</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <div style="padding:120px 40px;">
+    <h1>Edit Property</h1>
+    <form method="POST" enctype="multipart/form-data">
+      <!-- Property form fields include -->
+      {% include 'property_form_fields.html' %}
+      <div style="margin-bottom:15px;">
+        <label>Images</label><br>
+        <div class="dropzone" id="property-images"></div>
+      </div>
+      <button type="submit" class="btn">Update Property</button>
+      <a href="{{ url_for('main.admin') }}" class="btn" style="background:#555; margin-left:10px;">Cancel</a>
+    </form>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

@@ -21,12 +21,17 @@ def index():
     properties = Property.query.all()
     return render_template('index.html', properties=properties)
 
+@main.route('/properties')
+def properties():
+    properties = Property.query.all()
+    return render_template('properties.html', properties=properties)
+
 @main.route('/property/<int:property_id>')
 def property_detail(property_id):
     prop = Property.query.get(property_id)
     if not prop:
         abort(404)
-    return render_template('detail.html', property=prop)
+    return render_template('details.html', property=prop)
 
 @main.route('/flyer/<int:property_id>')
 def flyer(property_id):
@@ -42,7 +47,6 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username','')
         password = request.form.get('password','')
-        # TODO: replace with real credential check
         if username == 'Baiel' and password == '12345':
             session['logged_in'] = True
             flash('Logged in successfully', 'success')
@@ -57,7 +61,6 @@ def logout():
     return redirect(url_for('main.index'))
 
 def login_required(f):
-    """Simple decorator to require login for admin pages."""
     from functools import wraps
     @wraps(f)
     def wrapped(*args, **kwargs):
@@ -77,7 +80,6 @@ def admin():
 @login_required
 def add_property():
     if request.method == 'POST':
-        # Pull fields from form
         p = Property(
             title       = request.form['title'],
             address     = request.form['address'],
@@ -101,19 +103,12 @@ def add_property():
 def edit_property(property_id):
     prop = Property.query.get_or_404(property_id)
     if request.method == 'POST':
-        # Get existing images from the form (those not removed)
         existing_images = request.form.getlist('images')
-        
-        # Identify images to delete (those in the original list but not in the updated list)
         original_images = prop.images or []
         updated_images = [img for img in existing_images if img.strip()]
         images_to_delete = [img for img in original_images if img not in updated_images]
-        
-        # Delete removed images from static/images
         for img in images_to_delete:
             delete_image_file(img)
-        
-        # Update property fields
         prop.title       = request.form['title']
         prop.address     = request.form['address']
         prop.description = request.form['description']
@@ -133,13 +128,9 @@ def edit_property(property_id):
 @login_required
 def delete_property(property_id):
     prop = Property.query.get_or_404(property_id)
-    
-    # Delete associated images from static/images
     if prop.images:
         for img in prop.images:
             delete_image_file(img)
-    
-    # Delete the property from the database
     db.session.delete(prop)
     db.session.commit()
     flash('Property deleted!', 'info')
@@ -152,16 +143,13 @@ def allowed_file(filename):
            filename.rsplit('.',1)[1].lower() in ALLOWED_EXT
 
 @main.route('/upload_image', methods=['POST'])
-# @login_required   ← you can protect it if you only want logged‑in admins to upload
 def upload_image():
     file = request.files.get('file')
     if not file or not allowed_file(file.filename):
         return jsonify({'error': 'Invalid file'}), 400
-
     fn = secure_filename(file.filename)
     images_dir = os.path.join(current_app.static_folder, 'images')
     os.makedirs(images_dir, exist_ok=True)
-
     save_path = os.path.join(images_dir, fn)
     base, ext = os.path.splitext(fn)
     i = 1
@@ -169,10 +157,8 @@ def upload_image():
         fn = f"{base}_{i}{ext}"
         save_path = os.path.join(images_dir, fn)
         i += 1
-
     file.save(save_path)
     return jsonify({'filename': fn})
-
 
 @main.route('/robots.txt')
 def robots_txt():
