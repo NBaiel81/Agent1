@@ -124,6 +124,16 @@
     style="width:100%;padding:8px;"
   >
 </div>
+<div style="margin-bottom:15px;">
+  <label>Youtube Video Link</label><br>
+  <input
+    type="text"
+    name="video"
+    value="{{ property.video if video else '' }}"
+    required
+    style="width:100%;padding:8px;"
+  >
+</div>
     <button type="submit" class="btn">Save Property</button>
     <a href="{{ url_for('main.admin') }}"
        class="btn"

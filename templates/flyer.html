@@ -4,22 +4,51 @@
   <meta charset="UTF-8" />
   <title>{{ property.address }} - Flyer</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; color: #000; }
-    header { display: flex; align-items: center; margin-bottom: 40px; }
-    header img { height: 80px; }
-    h1 { font-size: 28px; margin-bottom:5px; }
-    h2 { font-size: 20px; margin:15px 0 10px; }
-    ul { padding-left:20px; }
-    p, li { font-size:16px; line-height:1.5; }
-    .section { margin-bottom:30px; }
+    @page {
+      size: A4;
+      margin: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      color: #000;
+      width: 210mm;
+      height: 297mm;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    header img {
+      height: 80px;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+    h2 {
+      font-size: 20px;
+      margin: 15px 0 10px;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    p, li {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
   </style>
 </head>
 <body>
 
   <header>
     <img
-      src="{{ url_for('static', filename='images/White Background Large Size-1.jpg') }}"
-      alt="Mainland Commerce Logo"
+      src="{{ url_for('static', filename='images/C21.png') }}"
+      alt="Logo"
     >
   </header>
 
@@ -27,11 +56,7 @@
   <p><strong>{{ property.title }}</strong></p>
   <p>
     <strong>Size:</strong> {{ property.size }} SF
-    {% if property.status=='For Lease' %}
-      | <strong>Rent:</strong> {{ property.price }}$/month
-    {% else %}
       | <strong>Price:</strong> {{ property.price }}$
-    {% endif %}
   </p>
 
   <div class="section">
@@ -52,10 +77,11 @@
   <div class="section">
     <h2>Contact</h2>
     <p>
-      <strong>Jennifer Tavares</strong><br>
-      Agent, Mainland Commerce<br>
-      Phone: +1 204 504 6631 | +1 204 962 1286<br>
-      Email: admin@mcre.ca
+      <strong>Nancy Lemieux-Bohemier</strong><br>
+      Agent, Century 21 Carrie Realty<br>
+      Phone: 204-981-4821<br>
+      Email: nancy@mcre.ca<br>
+      Office: 1046 St Mary's Road, Winnipeg, MB R2M 5S6
     </p>
   </div>
 

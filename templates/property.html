@@ -91,13 +91,22 @@
             z-index: 10;
         }
 
-        .search-results li {
+        .search-results div {
             padding: 0.5rem;
             cursor: pointer;
         }
 
-        .search-results li:hover {
+        .search-results div:hover {
             background: var(--color-gray-200);
+        }
+
+        .search-results .no-matches {
+            color: var(--color-gray-700);
+            cursor: default;
+        }
+
+        .search-results .no-matches:hover {
+            background: none;
         }
 
         .navbar__actions {
@@ -177,7 +186,8 @@
         .carousel {
             position: relative;
             max-width: 800px;
-            margin: 20px auto;
+            margin: 10px auto;
+            margin-bottom: 0px;
             overflow: hidden;
         }
 
@@ -260,7 +270,7 @@
 
         .content {
             display: flex;
-            margin: 20px 0;
+            margin: 10px 0;
             gap: 1rem;
         }
 
@@ -307,14 +317,13 @@
             text-decoration: none;
         }
 
-        .map iframe {
+        #map {
             width: 100%;
             height: 300px;
-            border: 0;
             border-radius: var(--radius);
         }
 
-        .print-btn {
+        .print-btn, .video-btn {
             background: var(--color-secondary);
             color: var(--color-white);
             border: none;
@@ -325,9 +334,18 @@
             border-radius: var(--radius);
             margin-top: 0.5rem;
             transition: background-color var(--transition);
+            margin-right: 10px;
+        }
+
+        .video-btn {
+            background: var(--color-accent);
         }
 
         .print-btn:hover {
+            background: var(--color-primary);
+        }
+
+        .video-btn:hover {
             background: var(--color-primary);
         }
 
@@ -369,7 +387,7 @@
             margin-bottom: 1rem;
         }
 
-        .footer-contact h2 {
+        .footer-contact h3 {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             color: var(--color-primary);
@@ -412,7 +430,7 @@
             <div class="navbar__actions">
                 <div class="navbar__socials">
                     <div class="navbar__social-buttons" style="display: flex; gap: 0.5rem;">
-                        <button class="navbar__action-btn" aria-label="Instagram" onclick="window.location.href='https://instagram.com'">
+                        <button class="navbar__action-btn" aria-label="Instagram" onclick="window.location.href='https://www.instagram.com/nancy_bohemier?igsh=Z3hvMmI2NWlyZHhv&utm_source=qr'">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.326 3.608 1.301.975.975 1.24 2.242 1.301 3.608.058 1.265.07 1.645.07 4.849s-.012 3.584-.07 4.85c-.062 1.366-.326 2.633-1.301 3.608-.975.975-2.242 1.24-3.608 1.301-1.265.058-1.645.07-4.849.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.326-3.608-1.301-.975-.975-1.24-2.242-1.301-3.608-.058-1.265-.07-1.645-.07-4.849s.012-3.584.07-4.85c.062-1.366.326-2.633 1.301-3.608.975-.975 2.242-1.24 3.608-1.301 1.265-.058 1.645-.07 4.849-.07m0-2.163c-3.259 0-3.667.014-4.947.072-1.453.066-2.944.403-4.078 1.537s-1.471 2.625-1.537 4.078c-.058 1.28-.072 1.688-.072 4.947s.014 3.667.072 4.947c.066 1.453.403 2.944 1.537 4.078s2.625 1.471 4.078 1.537c1.28.058 1.688.072 4.947.072s3.667-.014 4.947-.072c1.453-.066 2.944-.403 4.078-1.537s1.471-2.625 1.537-4.078c.058-1.28.072-1.688.072-4.947s-.014-3.667-.072-4.947c-.066-1.453-.403-2.944-1.537-4.078s-2.625-1.471-4.078-1.537c-1.28-.058-1.688-.072-4.947-.072z"/>
                                 <path d="M12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a3.999 3.999 0 110-7.998 3.999 3.999 0 010 7.998z"/>
@@ -424,22 +442,17 @@
                                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                             </svg>
                         </button>
-                        <button class="navbar__action-btn" aria-label="YouTube" onclick="window.location.href='https://youtube.com'">
+                        <button class="navbar__action-btn" aria-label="YouTube" onclick="window.location.href='https://youtube.com/@nancybohemier?si=L8LBGbgkjzrkzbFK'">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.016 3.016 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.872.505 9.377.505 9.377.505s7.505 0 9.377-.505a3.016 3.016 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                             </svg>
                         </button>
-                        <button class="navbar__action-btn" aria-label="Email" onclick="window.location.href='mailto:support@gamestore.com'">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                            </svg>
-                        </button>
                     </div>
                     <div class="navbar__contact-info">
-                        <p>Nancy Bohemier</p>
+                        <p>Nancy Lemieux-Bohemier</p>
                         <div class="navbar__contact-phone">
-                            <span>204-555-1234</span>
-                            <button class="navbar__action-btn" aria-label="Call" onclick="window.location.href='tel:+12045551234'">
+                            <span>204-981-4821</span>
+                            <button class="navbar__action-btn" aria-label="Call" onclick="window.location.href='tel:+12049814821'">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                     <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.02l-2.2 2.2zm6.19-4.39c-.55 0-1-.45-1-1s.45-1 1-1h2.5v-2.5c0-.55.45-1 1-1s1 .45 1 1v2.5h2.5c.55 0 1 .45 1 1s-.45 1-1 1h-2.5v2.5c0 .55-.45 1-1 1s-1-.45-1-1v-2.5h-2.5z"/>
                                 </svg>
@@ -453,6 +466,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Hidden Iframe for Printing Flyer -->
+    <iframe id="flyer-frame" style="display: none;"></iframe>
 
     <!-- Property Details Section -->
     <div class="container">
@@ -477,15 +493,18 @@
         <div class="property-info">
             <h1>{{ property.address }}</h1>
             <h2>{{ property.title }}</h2>
-            <p>{{ property.size }} SF</p>
-            <button class="print-btn" onclick="printFlyer()">Print Property</button>
+            <p>Price: ${{ property.price }} | Size: {{ property.size }} SF</p>
+            {% if property.video %}
+            <button class="print-btn" onclick="printFlyer('{{ property.id }}')">Print</button>
+            <button class="video-btn" onclick="window.open('{{ property.video }}', '_blank')">Video</button>
+            {% else %}
+            <button class="print-btn" onclick="printFlyer('{{ property.id }}')">Print</button>
+            {% endif %}
         </div>
 
         <div class="content">
             <div class="details">
                 <h2>Property Details</h2>
-                <p>{{ property.status|upper }}</p>
-                <p class="price">${{ property.price }}</p>
                 <p>{{ property.description }}</p>
             </div>
             <div class="features">
@@ -501,15 +520,21 @@
         <div class="map">
             <h2>Location</h2>
             <a href="{{ property.location }}" target="_blank">Open in Google Maps</a>
+            <div class="map-container">
+          {% if property.location %}
             <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.086!2d-122.4194155!3d37.7749295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0!2zMzfCsDQ2JzI5LjciTiAxMjLCsDI1JzA5LjkiVw!5e0!3m2!1sen!2sus!4v1638314859123!5m2!1sen!2sus"
-                width="100%"
-                height="300"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
+              src="{{ property.location | to_embed_url }}"
+              width="100%"
+              height="300"
+              style="border:0; border-radius: 10px; margin-top: 15px;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
             </iframe>
+          {% else %}
+            <p>Map unavailable</p>
+          {% endif %}
+        </div>
         </div>
     </div>
 
@@ -520,15 +545,15 @@
                 <img src="{{ url_for('static', filename='images/N.jpg') }}" alt="Nancy Bohemier Profile">
             </div>
             <div class="footer-contact">
-                <h2>Contact Nancy</h2>
-                <p>Phone: 204-555-1234</p>
-                <p>Email: nancy@century21carrie.com</p>
-                <p>Office: Century 21 Carrie Realty, 123 Main St, Winnipeg, MB R3C 0N9</p>
+                <h3>Contact Nancy</h3>
+                <p>Phone: 204-981-4821</p>
+                <p>Email: nancy@mcre.ca</p>
+                <p>Office: 1046 St Mary's Road, Winnipeg, MB R2M 5S6</p>
             </div>
             <div class="footer-socials">
                 <p>Follow</p>
                 <div style="display: flex; gap: 0.5rem; justify-content: center;">
-                    <button class="navbar__action-btn" aria-label="Instagram" onclick="window.location.href='https://instagram.com'">
+                    <button class="navbar__action-btn" aria-label="Instagram" onclick="window.location.href='https://www.instagram.com/nancy_bohemier?igsh=Z3hvMmI2NWlyZHhv&utm_source=qr'">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.326 3.608 1.301.975.975 1.24 2.242 1.301 3.608.058 1.265.07 1.645.07 4.849s-.012 3.584-.07 4.85c-.062 1.366-.326 2.633-1.301 3.608-.975.975-2.242 1.24-3.608 1.301-1.265.058-1.645.07-4.849.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.326-3.608-1.301-.975-.975-1.24-2.242-1.301-3.608-.058-1.265-.07-1.645-.07-4.849s.012-3.584.07-4.85c.062-1.366.326-2.633 1.301-3.608.975-.975 2.242-1.24 3.608-1.301 1.265-.058 1.645-.07 4.849-.07m0-2.163c-3.259 0-3.667.014-4.947.072-1.453.066-2.944.403-4.078 1.537s-1.471 2.625-1.537 4.078c-.058 1.28-.072 1.688-.072 4.947s.014 3.667.072 4.947c.066 1.453.403 2.944 1.537 4.078s2.625 1.471 4.078 1.537c1.28.058 1.688.072 4.947.072s3.667-.014 4.947-.072c1.453-.066 2.944-.403 4.078-1.537s1.471-2.625 1.537-4.078c.058-1.28.072-1.688.072-4.947s-.014-3.667-.072-4.947c-.066-1.453-.403-2.944-1.537-4.078s-2.625-1.471-4.078-1.537c-1.28-.058-1.688-.072-4.947-.072z"/>
                             <path d="M12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a3.999 3.999 0 110-7.998 3.999 3.999 0 010 7.998z"/>
@@ -540,7 +565,7 @@
                             <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                         </svg>
                     </button>
-                    <button class="navbar__action-btn" aria-label="YouTube" onclick="window.location.href='https://youtube.com'">
+                    <button class="navbar__action-btn" aria-label="YouTube" onclick="window.location.href='https://youtube.com/@nancybohemier?si=L8LBGbgkjzrkzbFK'">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.016 3.016 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.872.505 9.377.505 9.377.505s7.505 0 9.377-.505a3.016 3.016 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                         </svg>
@@ -550,6 +575,7 @@
         </div>
     </footer>
 
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
     <script>
         const searchInput = document.getElementById("search-bar");
         const resultsList = document.getElementById("search-results");
@@ -566,18 +592,24 @@
 
             const matches = properties.filter(p => p.address.toLowerCase().includes(query));
             matches.forEach(p => {
-                const li = document.createElement("li");
-                li.textContent = p.address;
-                li.onclick = () => window.location.href = "/property/" + p.id;
-                resultsList.appendChild(li);
+                const div = document.createElement("div");
+                div.textContent = p.address;
+                div.onclick = () => window.location.href = "/property/" + p.id;
+                resultsList.appendChild(div);
             });
 
             resultsList.style.display = matches.length ? "block" : "none";
         });
 
-        document.addEventListener("click", (e) => {
-            if (!searchInput.contains(e.target)) {
+        searchInput.addEventListener("blur", () => {
+            setTimeout(() => {
                 resultsList.style.display = "none";
+            }, 200);
+        });
+
+        searchInput.addEventListener("focus", () => {
+            if (searchInput.value) {
+                resultsList.style.display = "block";
             }
         });
 
@@ -610,20 +642,57 @@
             let autoSlideInterval = setInterval(() => {
                 currentSlide = (currentSlide + 1) % slides.length;
                 showSlide(currentSlide);
-            }, 5000);
+            }, 10000);
 
             const carousel = document.querySelector('.carousel');
             carousel.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
-            carousel.addEventListener('mouseleave', () => autoSlideInterval = setInterval(() => {
-                currentSlide = (currentSlide + 1) % slides.length;
-                showSlide(currentSlide);
-            }, 5000));
         }
 
         // Print functionality
-        function printFlyer() {
-            window.print();
+        function printFlyer(propertyId) {
+            const flyerFrame = document.getElementById('flyer-frame');
+            if (!flyerFrame) {
+                console.error('Flyer iframe not found');
+                return;
+            }
+            const flyerUrl = `/flyer/${propertyId}`;
+            flyerFrame.src = flyerUrl; // Load the flyer in the iframe
+            flyerFrame.onload = () => {
+                try {
+                    flyerFrame.contentWindow.focus();
+                    flyerFrame.contentWindow.print();
+                } catch (e) {
+                    console.error('Failed to print flyer:', e);
+                }
+            };
         }
+
+        // Dynamic Map functionality
+        function initMap() {
+            const propertyAddress = '{{ property.address | safe }}';
+            const mapDiv = document.getElementById('map');
+
+            const geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ address: propertyAddress }, (results, status) => {
+                if (status === 'OK' && results[0]) {
+                    const location = results[0].geometry.location;
+                    const map = new google.maps.Map(mapDiv, {
+                        zoom: 15,
+                        center: location,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    });
+                    new google.maps.Marker({
+                        position: location,
+                        map: map,
+                        title: propertyAddress
+                    });
+                } else {
+                    mapDiv.innerHTML = '<p>Map unavailable</p>';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initMap);
     </script>
 </body>
 </html>

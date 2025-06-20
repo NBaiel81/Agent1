@@ -89,6 +89,10 @@
         <label>Map URL</label><br>
         <input type="text" name="location" value="{{ property.location if property else '' }}" required style="width:100%;padding:8px;">
       </div>
+      <div style="margin-bottom:15px;">
+        <label>Youtube Video Link</label><br>
+        <input type="text" name="location" value="{{ property.video if property else '' }}" required style="width:100%;padding:8px;">
+      </div>
 
       <button type="submit" class="btn">Update Property</button>
       <a href="{{ url_for('main.admin') }}" class="btn" style="background:#555; margin-left:10px;">Cancel</a>

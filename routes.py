@@ -19,7 +19,8 @@ def delete_image_file(filename):
 @main.route('/')
 def index():
     top_properties = Property.query.order_by(Property.price.desc()).limit(3).all()
-    return render_template('index.html', top_properties=top_properties)
+    properties_json = [{"id": p.id, "address": p.address} for p in Property.query.all()]
+    return render_template('index.html', top_properties=top_properties, properties_json=properties_json)
 
 @main.route('/properties')
 def properties():
@@ -110,7 +111,8 @@ def add_property():
             size        = request.form['size'],
             images      = request.form.getlist('images'),
             features    = [line.strip() for line in request.form['features'].splitlines() if line.strip()],
-            location    = request.form['location']
+            location    = request.form['location'],
+            video       = request.form.get('video', '') 
         )
         db.session.add(p)
         db.session.commit()
@@ -137,6 +139,7 @@ def edit_property(property_id):
         prop.images      = updated_images
         prop.features    = [line.strip() for line in request.form['features'].splitlines() if line.strip()]
         prop.location    = request.form['location']
+        prop.video       = request.form.get('video', '')
         db.session.commit()
         flash('Property updated!', 'success')
         return redirect(url_for('main.admin'))

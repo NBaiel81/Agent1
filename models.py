@@ -10,3 +10,4 @@ class Property(db.Model):
     images = db.Column(db.JSON, nullable=False)           # list of image filenames
     features = db.Column(db.JSON, nullable=False)         # list of feature strings
     location = db.Column(db.String(500), nullable=False)  # Google Maps URL
+    video = db.Column(db.String(500), nullable=True)     # YouTube link (nullable=True for optional)
