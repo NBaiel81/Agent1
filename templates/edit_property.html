@@ -39,23 +39,6 @@
         </div>
       </div>
 
-      <div style="margin-bottom:15px; display:flex; gap:10px;">
-        <div style="flex:1;">
-          <label>Type</label><br>
-          <select name="type" required style="width:100%;padding:8px;">
-            <option value="Residential" {% if property and property.type=='Residential' %}selected{% endif %}>Residential</option>
-            <option value="Commercial" {% if property and property.type=='Commercial' %}selected{% endif %}>Commercial</option>
-          </select>
-        </div>
-        <div style="flex:1;">
-          <label>Status</label><br>
-          <select name="status" required style="width:100%;padding:8px;">
-            <option value="For Lease" {% if property and property.status=='For Lease' %}selected{% endif %}>For Lease</option>
-            <option value="For Sale" {% if property and property.status=='For Sale' %}selected{% endif %}>For Sale</option>
-          </select>
-        </div>
-      </div>
-
       <div style="margin-bottom:15px;">
         <label>Images</label>
       </div>
@@ -90,9 +73,14 @@
         <input type="text" name="location" value="{{ property.location if property else '' }}" required style="width:100%;padding:8px;">
       </div>
       <div style="margin-bottom:15px;">
-        <label>Youtube Video Link</label><br>
-        <input type="text" name="location" value="{{ property.video if property else '' }}" required style="width:100%;padding:8px;">
-      </div>
+      <label>Youtube Video Link</label><br>
+      <input
+        type="text"
+        name="video"
+        value="{{ property.video if video else '' }}"
+        style="width:100%;padding:8px;"
+      >
+    </div>
 
       <button type="submit" class="btn">Update Property</button>
       <a href="{{ url_for('main.admin') }}" class="btn" style="background:#555; margin-left:10px;">Cancel</a>

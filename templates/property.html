@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Property Details | Nancy Bohemier</title>
+    <!-- Favicon links -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon_io_nancy/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon_io_nancy/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon_io_nancy/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='favicon_io_nancy/site.webmanifest') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon_io_nancy/favicon.ico') }}" type="image/x-icon">
+
     <style>
         /* Global Reset & Variables */
         *,
@@ -55,6 +62,8 @@
 
         .navbar__logo img {
             height: 95px;
+            width: auto;
+            object-fit: contain;
         }
 
         .search-container {
@@ -91,12 +100,12 @@
             z-index: 10;
         }
 
-        .search-results div {
+        .search-results li {
             padding: 0.5rem;
             cursor: pointer;
         }
 
-        .search-results div:hover {
+        .search-results li:hover {
             background: var(--color-gray-200);
         }
 
@@ -172,6 +181,60 @@
             border: 1px solid var(--color-black-200);
         }
 
+        /* Mobile Navbar */
+        @media (max-width: 768px) {
+            .navbar__inner {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .navbar__logo img {
+                height: 60px;
+                width: auto;
+                object-fit: contain;
+                margin-bottom: 0.5rem;
+            }
+
+            .search-container {
+                width: 100%;
+                margin: 0 0 0.5rem;
+            }
+
+            .navbar__actions {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .navbar__socials {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .navbar__social-buttons {
+                flex-direction: row !important;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .navbar__contact-info {
+                text-align: center;
+                font-size: 1rem;
+            }
+
+            .navbar__profile-pic {
+                display: none;
+            }
+
+            .navbar__contact-phone span {
+                display: none;
+            }
+        }
+
         /* Property Section */
         .container {
             width: 90%;
@@ -187,7 +250,7 @@
             position: relative;
             max-width: 800px;
             margin: 10px auto;
-            margin-bottom: 0px;
+            margin-bottom: 0;
             overflow: hidden;
         }
 
@@ -248,6 +311,7 @@
         .property-info {
             text-align: center;
             padding: 20px 0;
+            word-wrap: break-word;
         }
 
         .property-info h1 {
@@ -266,19 +330,24 @@
         .property-info p {
             font-size: 1rem;
             color: var(--color-gray-700);
+            max-width: 100%;
+            overflow-wrap: break-word;
         }
 
         .content {
             display: flex;
             margin: 10px 0;
             gap: 1rem;
+            justify-content: center;
         }
 
         .details, .features {
             flex: 1;
+            max-width: 50%;
             padding: 1rem;
             background: var(--color-gray-100);
             border-radius: var(--radius);
+            word-wrap: break-word;
         }
 
         .details {
@@ -293,6 +362,8 @@
 
         .details p {
             margin-bottom: 0.5rem;
+            max-height: 150px;
+            overflow-y: auto;
         }
 
         .features ul {
@@ -302,6 +373,8 @@
 
         .features li {
             margin-bottom: 0.5rem;
+            max-width: 100%;
+            overflow-wrap: break-word;
         }
 
         .map {
@@ -349,13 +422,72 @@
             background: var(--color-primary);
         }
 
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
+            .carousel {
+                max-width: 100%;
+            }
+
+            .carousel-slide {
+                height: 200px;
+            }
+
+            .carousel-placeholder {
+                height: 200px;
+            }
+
+            .property-info h1 {
+                font-size: 1.25rem;
+            }
+
+            .property-info h2 {
+                font-size: 1rem;
+            }
+
+            .property-info p {
+                font-size: 0.9rem;
+            }
+
             .content {
                 flex-direction: column;
             }
+
             .details {
                 border-right: none;
                 border-bottom: 1px solid var(--color-gray-200);
+                max-width: 100%;
+                padding: 0.5rem;
+            }
+
+            .features {
+                max-width: 100%;
+                padding: 0.5rem;
+            }
+
+            .details h2, .features h2 {
+                font-size: 1.2rem;
+            }
+
+            .details p {
+                font-size: 0.85rem;
+                max-height: 100px;
+            }
+
+            .features li {
+                font-size: 0.85rem;
+            }
+
+            .map {
+                padding: 10px 0;
+            }
+
+            #map {
+                height: 200px;
+            }
+
+            .print-btn, .video-btn {
+                font-size: 0.9rem;
+                padding: 0.4rem 1rem;
             }
         }
 
@@ -419,13 +551,13 @@
     <div class="navbar">
         <div class="navbar__inner">
             <div style="display: flex; align-items: center;">
-                <a href="{{ url_for('main.index') }}" class="navbar__logo">
+                <a href="{{url_for('main.index')}}" class="navbar__logo">
                     <img src="{{ url_for('static', filename='images/C21.png') }}" alt="Logo">
                 </a>
                 <div class="search-container">
-                    <input type="text" id="search-bar" placeholder="Search properties by addresses...">
-                    <ul class="search-results" id="search-results"></ul>
-                </div>
+                  <input type="text" id="search-bar" placeholder="Search properties by addresses...">
+                  <ul class="search-results" id="search-results"></ul>
+              </div>
             </div>
             <div class="navbar__actions">
                 <div class="navbar__socials">
@@ -437,7 +569,7 @@
                                 <circle cx="18.406" cy="5.594" r="1.44"/>
                             </svg>
                         </button>
-                        <button class="navbar__action-btn" aria-label="Facebook" onclick="window.location.href='https://facebook.com'">
+                        <button class="navbar__action-btn" aria-label="Facebook" onclick="window.location.href='https://www.facebook.com/share/1BqHUPVwYP/?mibextid=wwXIfr'">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                             </svg>
@@ -447,16 +579,21 @@
                                 <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.016 3.016 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.872.505 9.377.505 9.377.505s7.505 0 9.377-.505a3.016 3.016 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                             </svg>
                         </button>
+                        <button class="navbar__action-btn" aria-label="Email" onclick="window.location.href='mailto:nancy@mcre.ca'">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                        </button>
+                        <button class="navbar__action-btn" aria-label="Call" onclick="window.location.href='tel:+12049814821'">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1.45 1 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.02l-2.2 2.2zm6.19-4.39c-.55 0-1-.45-1-1s.45-1 1-1h2.5v-2.5c0-.55.45-1 1-1s1 .45 1 1v2.5h2.5c.55 0 1 .45 1 1s-.45 1-1 1h-2.5v2.5c0 .55-.45 1-1 1s-1-.45-1-1v-2.5h-2.5z"/>
+                            </svg>
+                        </button>
                     </div>
                     <div class="navbar__contact-info">
                         <p>Nancy Lemieux-Bohemier</p>
                         <div class="navbar__contact-phone">
                             <span>204-981-4821</span>
-                            <button class="navbar__action-btn" aria-label="Call" onclick="window.location.href='tel:+12049814821'">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.02l-2.2 2.2zm6.19-4.39c-.55 0-1-.45-1-1s.45-1 1-1h2.5v-2.5c0-.55.45-1 1-1s1 .45 1 1v2.5h2.5c.55 0 1 .45 1 1s-.45 1-1 1h-2.5v2.5c0 .55-.45 1-1 1s-1-.45-1-1v-2.5h-2.5z"/>
-                                </svg>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -504,7 +641,7 @@
 
         <div class="content">
             <div class="details">
-                <h2>Property Details</h2>
+                <h2>Description</h2>
                 <p>{{ property.description }}</p>
             </div>
             <div class="features">
@@ -560,7 +697,7 @@
                             <circle cx="18.406" cy="5.594" r="1.44"/>
                         </svg>
                     </button>
-                    <button class="navbar__action-btn" aria-label="Facebook" onclick="window.location.href='https://facebook.com'">
+                    <button class="navbar__action-btn" aria-label="Facebook" onclick="window.location.href='https://www.facebook.com/share/1BqHUPVwYP/?mibextid=wwXIfr'">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                         </svg>
@@ -585,31 +722,45 @@
         searchInput.addEventListener("input", function () {
             const query = this.value.toLowerCase();
             resultsList.innerHTML = "";
-            if (!query) {
-                resultsList.style.display = "none";
-                return;
+            resultsList.style.display = "none";
+
+            if (query) {
+                const matches = properties.filter(p => p.address.toLowerCase().includes(query));
+                if (matches.length > 0) {
+                    matches.forEach(p => {
+                        const li = document.createElement("li");
+                        li.textContent = p.address;
+                        li.addEventListener('click', () => {
+                            window.location.href = `/property/${p.id}`;
+                        });
+                        resultsList.appendChild(li);
+                    });
+                    resultsList.style.display = "block";
+                } else {
+                    const noMatches = document.createElement("li");
+                    noMatches.className = "no-matches";
+                    noMatches.textContent = "No matches";
+                    resultsList.appendChild(noMatches);
+                    resultsList.style.display = "block";
+                }
             }
-
-            const matches = properties.filter(p => p.address.toLowerCase().includes(query));
-            matches.forEach(p => {
-                const div = document.createElement("div");
-                div.textContent = p.address;
-                div.onclick = () => window.location.href = "/property/" + p.id;
-                resultsList.appendChild(div);
-            });
-
-            resultsList.style.display = matches.length ? "block" : "none";
         });
 
-        searchInput.addEventListener("blur", () => {
+        searchInput.addEventListener('blur', () => {
             setTimeout(() => {
-                resultsList.style.display = "none";
+                resultsList.style.display = 'none';
             }, 200);
         });
 
-        searchInput.addEventListener("focus", () => {
+        searchInput.addEventListener('focus', () => {
             if (searchInput.value) {
-                resultsList.style.display = "block";
+                resultsList.style.display = 'block';
+            }
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!searchInput.contains(e.target) && !resultsList.contains(e.target)) {
+                resultsList.style.display = "none";
             }
         });
 

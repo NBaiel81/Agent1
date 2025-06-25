@@ -1,0 +1,11 @@
+# ignore caches and venv
+__pycache__/
+*.py[cod]
+.venv/
+
+# ignore your sqlite DB
+instance/*.db
+
+# ignore editor swap/temp files
+*~
+*.swp

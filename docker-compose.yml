@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  flask1:
+    build: ./site1
+    expose:
+      - "5000"
+
+  flask2:
+    build: ./site2
+    expose:
+      - "5000"
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/sites:/etc/nginx/conf.d
+      - certbot-etc:/etc/letsencrypt
+      - certbot-www:/var/www/certbot
+    depends_on:
+      - flask1
+      - flask2
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-www:/var/www/certbot
+
+volumes:
+  certbot-etc:
+  certbot-www:
