@@ -1,28 +1,27 @@
-# 1. Pick a slim Python base
+# 1. Use a minimal Python image
 FROM python:3.11-slim
 
-# 2. Avoid Python buffering, set Flask config
+# 2. Set environment variables
 ENV PYTHONUNBUFFERED=1 \
-    FLASK_ENV=production \
-    FLASK_APP=run.py
+    FLASK_ENV=production
 
-# 3. Create & switch to /app
+# 3. Set working directory
 WORKDIR /app
 
-# 4. Install system deps & Python reqs
+# 4. Install system dependencies (only what's necessary)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        build-essential \
-    && rm -rf /var/lib/apt/lists/*
+    build-essential \
+ && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt ./
-RUN pip install --upgrade pip \
- && pip install -r requirements.txt
- 
-# 5. Copy your application code
+# 5. Install Python packages
+COPY requirements.txt .
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# 6. Copy project files
 COPY . .
 
-# 6. Expose the port your Flask app listens on
+# 7. Expose app port
 EXPOSE 5000
 
-# 7. Launch with Gunicorn for production
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "run:app"]
+# 8. Launch app with Gunicorn
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]
